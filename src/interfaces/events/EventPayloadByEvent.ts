@@ -19,6 +19,7 @@ import type { RemotePlaySearchEvent } from './RemotePlaySearchEvent';
 import type { RemoteSeekEvent } from './RemoteSeekEvent';
 import type { RemoteSetRatingEvent } from './RemoteSetRatingEvent';
 import type { RemoteSkipEvent } from './RemoteSkipEvent';
+import type { RemoteBrowseEvent } from './RemoteBrowseEvent';
 import type { NowPlayingMetadataChangedEvent } from './NowPlayingMetadataChangedEvent';
 
 export type EventPayloadByEvent = {
@@ -47,6 +48,7 @@ export type EventPayloadByEvent = {
   [Event.RemoteLike]: never;
   [Event.RemoteDislike]: never;
   [Event.RemoteBookmark]: never;
+  [Event.RemoteBrowse]: RemoteBrowseEvent;
   [Event.MetadataChapterReceived]: AudioMetadataReceivedEvent;
   [Event.MetadataTimedReceived]: AudioMetadataReceivedEvent;
   [Event.MetadataCommonReceived]: AudioCommonMetadataReceivedEvent;
