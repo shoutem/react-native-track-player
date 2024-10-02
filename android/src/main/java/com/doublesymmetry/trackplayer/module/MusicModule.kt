@@ -371,7 +371,15 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
             callback.reject("no_current_item", "There is no current item in the player")
 
         musicService.clearNotificationMetadata()
+        musicService.updateNowPlayingMetadata(bundleToTrack(Bundle()))
         callback.resolve(null)
+    }
+
+    @ReactMethod
+    fun getNowPlayingMetadata(callback: Promise) = scope.launch {
+        if (verifyServiceBoundOrReject(callback)) return@launch
+
+        callback.resolve(Arguments.fromBundle(musicService.getNowPlayingMetadata()))
     }
 
     @ReactMethod

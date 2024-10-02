@@ -3,11 +3,11 @@ import type { Track, Progress, PlaybackState } from '../../src/interfaces';
 import { SetupNotCalledError } from './SetupNotCalledError';
 
 export class Player {
-  protected hasInitialized: boolean = false;
+  protected hasInitialized = false;
   protected element?: HTMLMediaElement;
   protected player?: shaka.Player;
   protected _current?: Track = undefined;
-  protected _playWhenReady: boolean = false;
+  protected _playWhenReady = false;
   protected _state: PlaybackState = { state: State.None };
 
   // current getter/setter

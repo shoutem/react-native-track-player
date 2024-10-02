@@ -204,6 +204,12 @@ export class PlaylistPlayer extends Player {
     }
   }
 
+  public async setQueue(queue: Track[]) {
+    this.playlist = queue;
+    this.currentIndex === undefined
+    await this.goToIndex(0);
+  }
+
   // TODO
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   public updateMetadataForTrack(index: number, metadata: Partial<Track>) {}

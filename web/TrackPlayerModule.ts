@@ -148,8 +148,40 @@ export class TrackPlayerModule extends PlaylistPlayer {
     });
   }
 
+  public async reset() {
+    if (!this.element) throw new SetupNotCalledError();
+    const lastTrack = this.current;
+    const lastPosition = this.element.currentTime;
+    
+    await super.reset();
+
+    this.emitter.emit(Event.PlaybackActiveTrackChanged, {
+      lastTrack,
+      lastPosition,
+      lastIndex: this.lastIndex,
+      index: this.currentIndex,
+      track: null,
+    });
+  }
+
   public getQueue(): Track[] {
     return this.playlist;
+  }
+
+  public async setQueue(queue: Track[]) {
+    if (!this.element) throw new SetupNotCalledError();
+    const lastTrack = this.current;
+    const lastPosition = this.element.currentTime;
+
+    await super.setQueue(queue);
+
+    this.emitter.emit(Event.PlaybackActiveTrackChanged, {
+      lastTrack,
+      lastPosition,
+      lastIndex: this.lastIndex,
+      index: 0,
+      track: this.playlist[0],
+    });
   }
 
   public getActiveTrack(): Track | undefined {
@@ -173,4 +205,6 @@ export class TrackPlayerModule extends PlaylistPlayer {
   public getPlaybackState(): PlaybackState {
     return this.state;
   }
-};
+
+  
+}
