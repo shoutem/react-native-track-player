@@ -60,6 +60,15 @@ export class TrackPlayerModule extends PlaylistPlayer {
   public set state(newState: PlaybackState) {
     super.state = newState;
     this.emitter.emit(Event.PlaybackState, newState);
+
+    if (this.state.state === State.Playing) {
+      const progress = this.getProgress();
+      this.emitter.emit(Event.PlaybackProgressUpdated, {
+        ...progress,
+        track: this.currentIndex,
+      });
+    }
+    
   }
 
   public async updateOptions(options: UpdateOptions) {
