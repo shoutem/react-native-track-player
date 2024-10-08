@@ -35,7 +35,6 @@ import com.doublesymmetry.trackplayer.module.MusicEvents
 import com.doublesymmetry.trackplayer.module.MusicEvents.Companion.METADATA_PAYLOAD_KEY
 import com.doublesymmetry.trackplayer.utils.BundleUtils
 import com.doublesymmetry.trackplayer.utils.BundleUtils.setRating
-import com.facebook.react.HeadlessJsTaskService
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.jstasks.HeadlessJsTaskConfig
 import com.facebook.react.modules.core.DeviceEventManagerModule
@@ -45,8 +44,6 @@ import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
-import com.doublesymmetry.trackplayer.R as TrackPlayerR
-import com.google.android.exoplayer2.ui.R as ExoPlayerR
 
 @MainThread
 class MusicService : HeadlessJsMediaService() {
