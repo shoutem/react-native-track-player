@@ -549,3 +549,15 @@ export function setBrowseTreeStyle(
   TrackPlayer.setBrowseTreeStyle(browsableStyle, playableStyle);
   return null;
 }
+
+export function turnOffShowWhenLocked() {
+  return TrackPlayer.turnOffShowWhenLocked();
+}
+
+export function getDrawOverAppsPermission() {
+  return TrackPlayer.getDrawOverAppsPermission();
+}
+
+export function askDrawOverAppsPermission() {
+  return TrackPlayer.askDrawOverAppsPermission();
+}

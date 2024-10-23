@@ -1,14 +1,14 @@
 package com.doublesymmetry.trackplayer.module
 
 import android.content.*
-import android.media.MediaDescription
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
-import android.net.Uri
-import android.support.v4.media.RatingCompat
+import android.provider.Settings
 import android.support.v4.media.MediaBrowserCompat.MediaItem
 import android.support.v4.media.MediaDescriptionCompat
+import android.support.v4.media.RatingCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.media.utils.MediaConstants
 import com.doublesymmetry.kotlinaudio.models.Capability
@@ -730,6 +730,33 @@ class MusicModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaM
             getStyle(browsableStyle),
             getStyle(playableStyle)
         )
+        callback.resolve(null)
+    }
+
+    @ReactMethod
+    fun turnOffShowWhenLocked(callback: Promise) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            val activity = reactApplicationContext.currentActivity
+            activity!!.setShowWhenLocked(false)
+            activity!!.setTurnScreenOn(false)
+        }
+
+        callback.resolve(null)
+    }
+
+    @ReactMethod
+    fun getDrawOverAppsPermission(callback: Promise) {
+        val activity = reactApplicationContext.currentActivity
+        callback.resolve(Settings.canDrawOverlays(activity))
+    }
+
+    @ReactMethod
+    fun askDrawOverAppsPermission(callback: Promise) {
+        val context = reactApplicationContext
+        val packageName = context.packageName
+        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
         callback.resolve(null)
     }
 }
