@@ -234,9 +234,15 @@ class MusicService : HeadlessJsMediaService() {
 
             override fun handlePlayFromSearch(query: String?, extras: Bundle?) {
                 Timber.tag("GVA-RNTP").d("RNTP received req to play from query: %s", query)
+
+                // Get the application name and include in bundle
+                // to allow for search string deconstruction
+                val appName = applicationContext.applicationInfo.loadLabel(applicationContext.packageManager).toString()
+
                 val emitBundle = extras ?: Bundle()
                 emit(MusicEvents.BUTTON_PLAY_FROM_SEARCH, emitBundle.apply {
                     putString("query", query)
+                    putString("app_name", appName)
                 })
             }
 
